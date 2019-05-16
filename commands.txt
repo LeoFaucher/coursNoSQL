@@ -1,0 +1,19 @@
+//Requetes de count
+
+db.games.count()
+    13357 produits au total
+db.games.count({categorysingleplayer: true, categorymultiplayer: true})
+    2889 jeux solo ET multi
+db.games.count({categorysingleplayer: true, categorymultiplayer: false})
+    8798 jeux solo UNIQUEMENT
+db.games.count({categorysingleplayer: false, categorymultiplayer: true})
+    592 jeux multi UNIQUEMENT
+db.games.count({categorysingleplayer: false, categorymultiplayer: false})
+    1078 NE SONT PAS DES JEUX
+db.games.count({isfree: true})
+    1045 sont GRATUITS
+
+//Requetes de find
+
+db.games.find({isfree: false, priceinitial: {$gt: 0}}, {queryname: 1, priceinitial: 1}).sort({priceinitial: 1}).limit(50)
+    //affiche les jeux (le nom et le prix sont affichés) les moins chers, non gratuits, par ordre croissant
