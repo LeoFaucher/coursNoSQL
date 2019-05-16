@@ -51,17 +51,17 @@ db.getCollection('games').find({ releasedate :{$regex : /xxxx$/}, genreisracing 
 
 //TRIE PAR LANGUES
 //seulement francais :
-db.getCollection('games').find({ supportedlanguages : "French"})
+db.getCollection('games').find({ supportedlanguages : "French"}, {queryname: 1, supportedlanguages: 1})
 
 //seulement anglais:
-db.getCollection('games').find({ supportedlanguages : "English"})
+db.getCollection('games').find({ supportedlanguages : "English"}, {queryname: 1, supportedlanguages: 1})
 
 //seulement allemand:
-db.getCollection('games').find({ supportedlanguages : "German"})
+db.getCollection('games').find({ supportedlanguages : "German"}, {queryname: 1, supportedlanguages: 1})
 
 //PLUSIEURS LANGUES 
 //Anglais , Francais : 
-db.getCollection('games').find({ supportedlanguages : "French", supportedlanguages : "English"})
+db.getCollection('games').find({ supportedlanguages : "French", supportedlanguages : "English"}, {queryname: 1, supportedlanguages: 1})
 
 // exemple pour n'importe quelle langues xxxx , xxxx :
-db.getCollection('games').find({ supportedlanguages : "xxxx", supportedlanguages : "xxxx"})
+db.getCollection('games').find({ supportedlanguages : "xxxx", supportedlanguages : "xxxx"}, {queryname: 1, supportedlanguages: 1})
