@@ -2,14 +2,19 @@
 
 db.games.count()
     13357 produits au total
+
 db.games.count({categorysingleplayer: true, categorymultiplayer: true})
     2889 jeux solo ET multi
+
 db.games.count({categorysingleplayer: true, categorymultiplayer: false})
     8798 jeux solo UNIQUEMENT
+
 db.games.count({categorysingleplayer: false, categorymultiplayer: true})
     592 jeux multi UNIQUEMENT
+
 db.games.count({categorysingleplayer: false, categorymultiplayer: false})
     1078 NE SONT PAS DES JEUX
+
 db.games.count({isfree: true})
     1045 sont GRATUITS
 
@@ -25,13 +30,11 @@ db.getCollection('games').find({}).sort({releasedate:1}).limit(50)
 //trie par date et genre action :
 db.getCollection('games').find({ releasedate :{$regex : /xxxx$/}, genreisaction : "true"})
 
-
 //trie par date et genre aventures 
 db.getCollection('games').find({ releasedate :{$regex : /xxxx$/}, genreisadventure : "true"})
 
 //trie par date et genre casual
 db.getCollection('games').find({ releasedate :{$regex : /xxxx$/}, genreiscasual : "true"})
-
 
 //date et genre strategy
 db.getCollection('games').find({ releasedate :{$regex : /xxxx$/}, genreisstrategy : "true"})
@@ -47,7 +50,6 @@ db.getCollection('games').find({ releasedate :{$regex : /xxxx$/}, genreissports 
 
 //date et racing
 db.getCollection('games').find({ releasedate :{$regex : /xxxx$/}, genreisracing : "true"})
-
 
 //TRIE PAR LANGUES
 //seulement francais :
@@ -65,3 +67,9 @@ db.getCollection('games').find({ supportedlanguages : {$regex: "^French*"}, supp
 
 // exemple pour n'importe quelle langues xxxx , xxxx :
 db.getCollection('games').find({ supportedlanguages : "^xxxx*", supportedlanguages : "^xxxx*"}, {queryname: 1, supportedlanguages: 1})
+
+//AJOUTER UNE COLONNE POUR AFFICHER LES JOUEUERS ACTUELS (au moment du telechargement des données)
+db.getCollection(‘games').updateMany({queryname: "Dota 2", queryname: "Counter-Strike:Global Offensive", queryname: "Tom Clancy's Rainbow Six Siege", queryname:"Grand Theft Auto V », queryname: "Warframe"}, {$set: {currentplayer: 0}})
+
+//Compter le nombre total de jeux acquéris sur la platforme comparé au nommbre de recommendation
+db.games.aggregate([{ $group: { _id: "TotalRecommendationByOwn", CountBuy: { $sum: "$steamspyowners" }, CountRecommendations: { $sum: "$recommendationcount" }}}])
